@@ -4,7 +4,9 @@ Convert a VGM YM2151 file into a ROM that can be used with a Yamaha CX5M MSX com
 
 Currently only parses some VGM files...
 
+```
 $ sh make_example.sh
+```
 
 ## Legal
 
