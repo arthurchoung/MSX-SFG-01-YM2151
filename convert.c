@@ -50,7 +50,24 @@ void main()
         header[0x14+1],
         header[0x14+2],
         header[0x14+3],
-        header[0x14+0]+0x14);
+        header[0x14+0]+header[0x14+1]*256+0x14);
+
+    int dataoffset = header[0x34+0]+header[0x34+1]*256+0x34; // should use all 4 bytes
+    fprintf(stderr, "VGM data offset %2x %2x %2x %2x (%x)\n",
+        header[0x34+0],
+        header[0x34+1],
+        header[0x34+2],
+        header[0x34+3],
+        dataoffset);
+
+    if (dataoffset-0x40 > 0) {
+        result = fread(header+0x40, 1, dataoffset-0x40, stdin);
+        if (result != dataoffset-0x40) {
+            fprintf(stderr, "unable to read rest of header\n");
+            exit(1);
+        }
+    }
+
 
     unsigned char cmd;
     int i = 256;
@@ -104,6 +121,9 @@ void main()
             } else if (nn[1] > highestwait) {
                 highestwait = nn[1];
             }
+        } else if (cmd == 0x62) {
+            fprintf(stderr, "i %d wait 735 samples\n", i);
+            generate_longwait(0xdf, 0x02);
         } else if (cmd == 0x66) {
             fprintf(stderr, "i 0x%x end\n", i);
             fprintf(stdout, "    ; end\n");
