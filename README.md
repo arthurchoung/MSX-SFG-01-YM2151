@@ -12,7 +12,7 @@ $ sh make_example.sh
 
 Copyright (c) 2024 Arthur Choung. All rights reserved.
 
-Email: arthur -at- hotdoglinux.com
+Email: arthur -at- 8bitoperahouse.com
 
 Released under the GNU General Public License, version 3.
 
